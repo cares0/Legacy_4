@@ -28,6 +28,17 @@ public class NoticeController {
 		model.addAttribute("detail", noticeDTO);
 	}
 	
+	@RequestMapping(value = "add", method = RequestMethod.GET)
+	public void add() throws Exception {
+	}
+	
+	@RequestMapping(value = "add", method = RequestMethod.POST)
+	public String add(NoticeDTO noticeDTO) throws Exception {
+		int result = noticeService.add(noticeDTO);
+		
+		return "redirect:./list";
+	}
+	
 	
 	
 	

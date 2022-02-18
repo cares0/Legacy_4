@@ -22,12 +22,15 @@
 			<c:forEach items="${list}" var="dto">
 				<tr>
 					<td>${dto.num}</td>
-					<td>${dto.contents}</td>
+					<td><a href="./detail?num=${dto.num}">${dto.title}</a></td>
 					<td>${dto.hit}</td>
 				</tr>
 			</c:forEach>
 		</tbody>
 	</table>
+	
+	<br>
+	<a href="./add">공지사항 등록</a>
 	
 </body>
 </html>
