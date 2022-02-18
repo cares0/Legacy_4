@@ -25,16 +25,18 @@ public class BankBookDAOTest extends InitTestCase {
 		assertNotEquals(0, ar.size());
 	}
 	
-	//@Test
+	@Test
 	public void addTest() throws Exception {
+		for(int i=0;i<10;i++) {
 		BankBookDTO bankBookDTO = new BankBookDTO();
-		bankBookDTO.setBookName("b1");
-		bankBookDTO.setBookContents("c1");
-		bankBookDTO.setBookRate(2.2);
+		bankBookDTO.setBookName("bookName"+i);
+		bankBookDTO.setBookContents("Contents"+i);
+		bankBookDTO.setBookRate(0.12+i);
 		bankBookDTO.setBookSale(1);
-		
+	
 		int result = bankBookDAO.add(bankBookDTO);
-		assertEquals(1, result);		
+		}
+		//assertEquals(1, result);		
 	}
 	
 	@Test
