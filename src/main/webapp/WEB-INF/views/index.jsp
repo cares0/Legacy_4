@@ -9,6 +9,8 @@
 <body>
 	<h1>Index Page</h1>
 	
-	<a href="./bankbook/list">통장 목록 보기</a>
+	<a href="./bankbook/list">통장목록</a>
+	<a href="./notice/list">공지사항</a>
+	<a href="./member/join">회원가입</a>
 </body>
 </html>
