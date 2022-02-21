@@ -8,5 +8,7 @@
 </head>
 <body>
 	<h1>Index Page</h1>
+	
+	<a href="./bankbook/list">통장 목록 보기</a>
 </body>
 </html>

@@ -30,6 +30,7 @@
 	</table>
 	
 	<br>
+	<a href="../">홈페이지 가기</a>
 	<a href="./add">통장 추가 하기</a>
 </body>
 </html>

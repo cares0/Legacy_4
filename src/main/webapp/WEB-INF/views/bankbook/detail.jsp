@@ -13,7 +13,7 @@
 	<table>
 		<thead>
 			<tr>
-				<th>Nunber</th>
+				<th>Number</th>
 				<th>Name</th>
 				<th>Contents</th>
 				<th>Rate</th>
@@ -33,7 +33,7 @@
 	
 	<br>
 	<a href="./list">통장 목록 가기</a>
-	
+	<a href="./delete?bookNumber=${detail.bookNumber}">통장 지우기</a>
 	
 	
 </body>
