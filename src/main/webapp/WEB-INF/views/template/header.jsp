@@ -16,12 +16,12 @@
 			<ul>
 				<c:choose>
 					<c:when test="${empty member}"> 
-					<li><a href="./member/login">Login</a></li>
-					<li><a href="./member/join">Join</a></li>
+					<li><a href="/s1/member/login">Login</a></li>
+					<li><a href="/s1/member/join">Join</a></li>
 					</c:when>
 				 	<c:otherwise>
-					<li><a href="./member/mypage">MyPage</a></li>
-					<li><a href="./member/logout">Logout</a></li>
+					<li><a href="/s1/member/mypage">MyPage</a></li>
+					<li><a href="/s1/member/logout">Logout</a></li>
 					</c:otherwise>
 				</c:choose>
 			</ul>
