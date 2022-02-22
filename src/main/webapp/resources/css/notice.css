@@ -1,0 +1,41 @@
+.sub {
+    text-align: center;
+}
+
+.table {
+    border-spacing: 0px;
+    border-collapse: collapse;
+    width: 500px;
+    margin: 0 auto;
+}
+
+.table>thead tr {
+    background-color: black;
+}
+
+.table th:nth-child(1) {
+    width: 50px;    
+}
+.table th:nth-child(2) {
+    width: 300px;
+}
+.table th:nth-of-type(3) {
+    width: 50px;
+}
+.table th:nth-of-type(4) {
+    width: 50px;
+}
+.table th:nth-of-type(5) {
+    width: 50px;
+}
+
+.table>tbody tr{
+    height: 50px;
+}
+.table th {
+    color: white;
+}
+
+.table td {
+    border: 2px solid black;
+}
