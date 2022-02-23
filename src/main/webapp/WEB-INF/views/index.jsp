@@ -7,8 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 	<c:import url="./template/header_css.jsp"></c:import>
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet">
+	
 	
 </head>
 <body>
@@ -18,9 +17,7 @@
 	<h3>${member.name}님 환영합니다.</h3>
 	</c:if>
 	
-	<span class="material-icons">login</span>
-
-	
-	</div>
+	<span class="material-icons-outlined">login</span>
+	<span>MyPage</span>
 </body>
 </html>
