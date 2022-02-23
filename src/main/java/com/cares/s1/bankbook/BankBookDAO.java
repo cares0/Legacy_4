@@ -14,6 +14,10 @@ public class BankBookDAO {
 	
 	private final String NAMESPACE = "com.cares.s1.bankbook.BankBookDAO.";
 	
+	public int update(BankBookDTO bankBookDTO) throws Exception {
+		return sqlSession.update(NAMESPACE+"update", bankBookDTO);
+	}
+	
 	public List<BankBookDTO> list() throws Exception {
 		return sqlSession.selectList(NAMESPACE+"list");
 	}
