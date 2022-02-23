@@ -16,5 +16,8 @@
 		<insert id="add" parameterType="NoticeDTO">
 			INSERT INTO NOTICE VALUES (NOTICE_SEQ.NEXTVAL, #{title}, #{contents}, #{writer}, SYSDATE, 0)
 		</insert>
-	
+		<update id="update" parameterType="NoticeDTO">
+			UPDATE NOTICE SET TITLE = #{title}, CONTENTS = #{contents}, WRITER = #{writer} WHERE NUM = #{num}
+		</update>
+		
 	</mapper>

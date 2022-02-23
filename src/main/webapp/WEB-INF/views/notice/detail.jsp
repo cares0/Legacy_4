@@ -35,5 +35,7 @@
 	
 	<br>
 	<a href="./list">목록 보기</a>
+	<a href="./delete?num=${detail.num}">공지사항 삭제</a>
+	<a href="./update?num=${detail.num}">공지사항 수정</a>
 </body>
 </html>

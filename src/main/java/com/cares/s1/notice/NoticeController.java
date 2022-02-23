@@ -16,6 +16,19 @@ public class NoticeController {
 	@Autowired
 	private NoticeService noticeService;
 	
+	@RequestMapping (value = "update", method = RequestMethod.POST)
+	public String update(NoticeDTO noticeDTO) throws Exception {
+		int result = noticeService.update(noticeDTO);
+		
+		return "redirect:./detail?num="+noticeDTO.getNum();
+	}
+	
+	@RequestMapping(value = "update", method = RequestMethod.GET)
+	public void update(NoticeDTO noticeDTO, Model model) throws Exception {
+		noticeDTO = noticeService.detail(noticeDTO);
+		model.addAttribute("detail", noticeDTO);
+	}
+	
 	@RequestMapping(value = "list", method = RequestMethod.GET)
 	public void list(Model model) throws Exception {
 		List<NoticeDTO> ar = noticeService.list();
@@ -35,6 +48,13 @@ public class NoticeController {
 	@RequestMapping(value = "add", method = RequestMethod.POST)
 	public String add(NoticeDTO noticeDTO) throws Exception {
 		int result = noticeService.add(noticeDTO);
+		
+		return "redirect:./list";
+	}
+	
+	@RequestMapping(value = "delete", method = RequestMethod.GET)
+	public String delete(NoticeDTO noticeDTO) throws Exception {
+		int result = noticeService.delete(noticeDTO);
 		
 		return "redirect:./list";
 	}
