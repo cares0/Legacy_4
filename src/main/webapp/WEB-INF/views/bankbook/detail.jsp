@@ -33,6 +33,7 @@
 	
 	<br>
 	<a href="./list">통장 목록 가기</a>
+	<a href="./update?bookNumber=${detail.bookNumber}">통장 수정하기</a>
 	<a href="./delete?bookNumber=${detail.bookNumber}">통장 지우기</a>
 	
 	
