@@ -18,6 +18,7 @@
 	<table class="bankbook_table">
 		<thead>
 			<tr>
+				<th>Num</th>
 				<th>Name</th>
 				<th>Rate</th>
 				<th>Sale</th>
@@ -26,6 +27,7 @@
 		<tbody>
 			<c:forEach items="${list}" var="dto">
 				<tr>
+					<td>${dto.bookNumber}</td>
 					<td><a href="./detail?bookNumber=${dto.bookNumber}">${dto.bookName}</a></td>
 					<td>${dto.bookRate}</td>
 					<c:if test="${dto.bookSale!=0}">
@@ -39,6 +41,21 @@
 		</tbody>
 	</table>
 	
+	<div>
+		<c:if test="${pager.pre}">
+			<a href="./list?page=${pager.startNum-1}">PREVIEW</a>
+		</c:if>
+		<!-- 제일 작은 수에 -1 -->
+	
+		<c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="i" >
+			<a href="./list?page=${i}">${i}</a>
+		</c:forEach>
+		
+		<c:if test="${pager.next}">
+			<a href="./list?page=${pager.lastNum+1}">NEXT</a>
+		</c:if>
+		<!-- 제일 큰 수에 +1 -->
+	</div>
 	<br>
 
 	<a href="./add">통장 추가</a>

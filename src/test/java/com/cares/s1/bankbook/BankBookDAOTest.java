@@ -3,43 +3,62 @@ package com.cares.s1.bankbook;
 import static org.junit.Assert.*;
 
 import java.util.List;
+import java.util.Random;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.cares.s1.InitTestCase;
+import com.cares.s1.util.Pager;
 
 public class BankBookDAOTest extends InitTestCase {
 
 	@Autowired
 	private BankBookDAO bankBookDAO;
 	
-	@Test
+	//@Test
 	public void check() {
 		assertNotNull(bankBookDAO);
 	}
 
 	@Test
 	public void listTest() throws Exception {
-		List<BankBookDTO> ar = bankBookDAO.list();
-		assertNotEquals(0, ar.size());
+		Pager pager = new Pager();
+		pager.setPerPage(5L);
+		pager.makeRow();
+		
+		
+		List<BankBookDTO> ar = bankBookDAO.list(pager);
+		System.out.println(ar.get(0).getBookNumber());
+		System.out.println(ar.get(4).getBookNumber());
+		assertEquals(5, ar.size());
 	}
 	
-	@Test
+	//@Test
 	public void addTest() throws Exception {
-		for(int i=0;i<10;i++) {
-		BankBookDTO bankBookDTO = new BankBookDTO();
-		bankBookDTO.setBookName("bookName"+i);
-		bankBookDTO.setBookContents("Contents"+i);
-		bankBookDTO.setBookRate(0.12+i);
-		bankBookDTO.setBookSale(1);
-	
-		int result = bankBookDAO.add(bankBookDTO);
+		
+		for(int i=0;i<200;i++) {
+			BankBookDTO bankBookDTO = new BankBookDTO();
+			bankBookDTO.setBookName("bookName"+i);
+			bankBookDTO.setBookContents("Contents"+i);
+			double rate = Math.random();
+			rate = rate*1000;
+			int r = (int) rate;
+			rate = r/100.0;
+			
+			bankBookDTO.setBookRate(rate);
+			bankBookDTO.setBookSale(1);
+			int result = bankBookDAO.add(bankBookDTO);
+			
+			if(i%10==0) {
+				Thread.sleep(1000);
+			}
+		
 		}
-		//assertEquals(1, result);		
+		System.out.println("finish");
 	}
 	
-	@Test
+	//@Test
 	public void detailTest() throws Exception {
 		BankBookDTO bankBookDTO = new BankBookDTO();
 		bankBookDTO.setBookNumber(2L);
@@ -47,7 +66,7 @@ public class BankBookDAOTest extends InitTestCase {
 		assertNotNull(bankBookDTO);
 	}
 	
-	@Test
+	//@Test
 	public void deleteTest() throws Exception {
 		BankBookDTO bankBookDTO = new BankBookDTO();
 		bankBookDTO.setBookNumber(2L);

@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cares.s1.util.Pager;
+
 @Service
 public class BankBookService {
 	// Controller -> Service -> DAO
@@ -18,13 +20,17 @@ public class BankBookService {
 	// 메서드는 DAO의 메서드와 거의 동일
 	
 	//list
-	public List<BankBookDTO> list() throws Exception {
+	public List<BankBookDTO> list(Pager pager) throws Exception {
 		// DAO 메서드 호출 전에 전처리 작업
 		// 호출 후 후처리 작업
 		// 무조건은 아니고 필요로 하다면 하는 것
 		
-		List<BankBookDTO> ar = bankBookDAO.list();
+		// startRow, lastRow 계산해야지 -> 전처리 작업
+		pager.makeRow();
 		
+		Long totalCount = bankBookDAO.total();
+		pager.makeNum(totalCount); // 실제 DB에 있는 갯수를 가져와서 jsp로 보내주게 됨
+		List<BankBookDTO> ar = bankBookDAO.list(pager);	
 		return ar;
 	}
 	

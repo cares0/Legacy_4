@@ -4,8 +4,14 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 	<mapper namespace="com.cares.s1.bankbook.BankBookDAO">
-		<select id="list" resultType="BankBookDTO">
-			SELECT * FROM BANKBOOK
+		<select id="list" parameterType="Pager" resultType="BankBookDTO">
+			SELECT * 
+			FROM (SELECT ROWNUM R, B.*
+			      FROM (SELECT * FROM BANKBOOK ORDER BY BOOKNUMBER DESC) B)
+			WHERE R BETWEEN #{startRow} AND #{lastRow}
+		</select>
+		<select id="total" resultType="Long">
+			SELECT COUNT(BOOKNUMBER) FROM BANKBOOK
 		</select>
 		
 		<insert id="add" parameterType="BankBookDTO">
@@ -23,5 +29,8 @@
 		<update id="update" parameterType="BankBookDTO">
 			UPDATE BANKBOOK SET BOOKNAME = #{bookName}, BOOKCONTENTS = #{bookContents}, BOOKRATE = #{bookRate}, BOOKSALE = #{bookSale} WHERE BOOKNUMBER = #{bookNumber}
 		</update>
+		
+		<!-- totalCount 구하기 -> DAO에 메서드 만들어라 -->
+
 		
 	</mapper>
