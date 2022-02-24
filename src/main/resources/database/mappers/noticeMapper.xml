@@ -4,9 +4,16 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 	<mapper namespace="com.cares.s1.notice">
-		<select id="list" resultType="NoticeDTO">
-			SELECT * FROM NOTICE
+		<select id="list" parameterType="NoticePager" resultType="NoticeDTO">
+			SELECT * 
+			FROM (SELECT ROWNUM R, N.* 
+			      FROM (SELECT * FROM NOTICE ORDER BY NUM DESC) N)
+			WHERE R BETWEEN #{startRow} AND #{lastRow}
 		</select>
+		<select id="getTotal" resultType="Long">
+			SELECT COUNT(NUM) FROM NOTICE
+		</select>
+		
 		<select id="detail" resultType="NoticeDTO" parameterType="NoticeDTO">
 			SELECT * FROM NOTICE WHERE NUM = #{num}
 		</select>

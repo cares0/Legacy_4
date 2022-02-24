@@ -10,6 +10,7 @@
 		<typeAlias type="com.cares.s1.notice.NoticeDTO" alias="NoticeDTO"/>
 		<typeAlias type="com.cares.s1.member.MemberDTO" alias="MemberDTO"/>
 		<typeAlias type="com.cares.s1.util.Pager" alias="Pager"/>
+		<typeAlias type="com.cares.s1.util.NoticePager" alias="NoticePager"/>
 	</typeAliases>
 </configuration> 
 
