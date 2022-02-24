@@ -19,6 +19,8 @@
 		<h3>${mypage.email}</h3>
 	</div>
 	
+	<a href="./update?id=${mypage.id}">정보수정하기</a>
+	
 	
 </body>
 </html>

@@ -7,12 +7,15 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 	<c:import url="../template/header_css.jsp"></c:import>
+	<link rel="stylesheet" type="text/css" href="../resources/css/table.css">
 </head>
 <body>
 	<c:import url="../template/header.jsp"></c:import>
-	<h1>Notice List Page</h1>
 	
-	<table>
+	<br>
+	<div class="notice_title">Notice List Page</div>
+	<br>
+	<table class="notice_table">
 		<thead>
 			<tr>
 				<th>글번호</th>

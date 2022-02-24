@@ -17,7 +17,5 @@
 	<h3>${member.name}님 환영합니다.</h3>
 	</c:if>
 	
-	<span class="material-icons-outlined">login</span>
-	<span>MyPage</span>
 </body>
 </html>

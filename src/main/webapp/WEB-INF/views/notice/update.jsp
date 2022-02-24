@@ -14,13 +14,12 @@
 
 	<form action="./update" method="POST">
 		<input type="hidden" name="num" value="${detail.num}">
-		<h3>공지사항 이름 입력</h3>
+		<h3>공지사항 이름 수정</h3>
 		<div><input type="text" name="title" value="${detail.title}"></div>
-		<h3>공지사항 내용 입력</h3>
+		<h3>공지사항 내용 수정</h3>
 		<div><textarea name="contents" rows="10" cols="30">${detail.contents}</textarea></div>
-		<h3>작성자 입력</h3>
-		<div><input type="text" name="writer" value="${detail.writer}"></div>
-		
+		<br>
+		<h3>작성자 정보 : ${detail.writer}</h3>
 		<br>
 		<button type="submit">수정하기</button>
 	</form>

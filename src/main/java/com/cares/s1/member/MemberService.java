@@ -21,4 +21,7 @@ public class MemberService {
 		return memberDAO.mypage(memberDTO);
 	}
 	
+	public int update(MemberDTO memberDTO) throws Exception {
+		return memberDAO.update(memberDTO);
+	}
 }
