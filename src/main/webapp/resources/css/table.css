@@ -32,19 +32,19 @@
 
 /* bankbook table */
 
-.bankbook_title {
-	text-align : center;
-	font-size: 20px;
-	font-weight: bold;
-}
 .bankbook_table {
-	width:600px;
-	margin: 0 auto;
+	width:100%;
 	border-spacing: 0px;
 	border-collapse: collapse;
 }
-.bankbook_table th {
-	border: 1.5px black solid;
+.bankbook_table thead {
+	background-color: #caf0ff;
+	height: 50px;
+}
+.bankbook_table th, .bankbook_table td {
+	border: 1px solid #98bdcc;
+	border-collapse: collapse;
+	height: 30px;
 }
 .bankbook_table th:nth-of-type(1) {
 	width:100px;
@@ -57,8 +57,5 @@
 }
 .bankbook_table th:nth-of-type(4) {
 	width:100px;
-}
-.bankbook_table td {
-	border: 1px black solid;
 }
 

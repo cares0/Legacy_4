@@ -7,11 +7,34 @@
 		<select id="list" parameterType="Pager" resultType="BankBookDTO">
 			SELECT * 
 			FROM (SELECT ROWNUM R, B.*
-			      FROM (SELECT * FROM BANKBOOK ORDER BY BOOKNUMBER DESC) B)
+			      FROM (SELECT * FROM BANKBOOK 
+			            WHERE BOOKNUMBER > 0 
+			            AND 
+			            <choose>
+			            	<when test="kind=='col1'">
+			            	BOOKNAME
+			            	</when>
+			            	<otherwise>
+			            	BOOKCONTENTS
+			            	</otherwise>
+			            </choose> 
+			            LIKE '%'||#{search}||'%'
+			            ORDER BY BOOKNUMBER DESC) B)
 			WHERE R BETWEEN #{startRow} AND #{lastRow}
 		</select>
-		<select id="total" resultType="Long">
-			SELECT COUNT(BOOKNUMBER) FROM BANKBOOK
+		<select id="total" resultType="Long" parameterType="Pager">
+			SELECT COUNT(BOOKNUMBER) FROM BANKBOOK 
+			WHERE BOOKNUMBER > 0 
+            AND 
+            <choose>
+            	<when test="kind=='col1'">
+	            	BOOKNAME
+            	</when>
+            	<otherwise>
+	            	BOOKCONTENTS
+            	</otherwise>
+	        </choose> 
+            LIKE '%'||#{search}||'%'
 		</select>
 		
 		<insert id="add" parameterType="BankBookDTO">

@@ -21,6 +21,25 @@ public class Pager {
 		this.lastRow = this.getPage() * this.getPerPage();
 	}
 	
+	// 검색 사용 변수, 메서드
+	private String search;
+	private String kind;
+	
+	public String getSearch() {
+		// 검색어가 없으면 search = null, 기본값을 넣어야 함
+		if(this.search == null) {
+			this.search = "";
+		}
+		//this.search = "%" + this.search + "%";
+		return search;
+	}
+	public String getKind() {
+		if (this.kind == null) {
+			this.kind = "BOOKNAME";
+		}
+		return kind;
+	}
+	
 	// -- jsp 사용 변수, 메서드 --
 	private Long startNum;
 	private Long lastNum;	
@@ -158,6 +177,16 @@ public class Pager {
 
 	public void setNext(boolean next) {
 		this.next = next;
+	}
+
+
+	public void setSearch(String search) {
+		this.search = search;
+	}
+
+
+	public void setKind(String kind) {
+		this.kind = kind;
 	}
 	
 	

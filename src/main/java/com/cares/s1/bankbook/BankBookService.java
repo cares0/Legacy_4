@@ -28,7 +28,7 @@ public class BankBookService {
 		// startRow, lastRow 계산해야지 -> 전처리 작업
 		pager.makeRow();
 		
-		Long totalCount = bankBookDAO.total();
+		Long totalCount = bankBookDAO.total(pager);
 		pager.makeNum(totalCount); // 실제 DB에 있는 갯수를 가져와서 jsp로 보내주게 됨
 		List<BankBookDTO> ar = bankBookDAO.list(pager);	
 		return ar;
