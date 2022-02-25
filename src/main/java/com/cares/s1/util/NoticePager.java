@@ -68,10 +68,34 @@ public class NoticePager {
 		if (curBlock == totalBlock) {
 			this.lastNum = totalPage;
 		}
+		System.out.println(this.startRow);
+		System.out.println(this.lastRow);
 	}
 	
+	// 검색처리용
+	
+	private String kind;
+	private String search;
 	
 	
+	public String getKind() {
+		if(this.kind == null) {
+			this.kind = "col1";
+		}
+		return kind;
+	}
+	public String getSearch() {
+		if(this.search == null) {
+			this.search = "";
+		}
+		return search;
+	}
+	public void setKind(String kind) {
+		this.kind = kind;
+	}
+	public void setSearch(String search) {
+		this.search = search;
+	}
 	public Long getStartRow() {
 		return startRow;
 	}

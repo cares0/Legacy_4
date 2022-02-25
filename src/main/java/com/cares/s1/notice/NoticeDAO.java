@@ -32,7 +32,7 @@ public class NoticeDAO {
 	public int update(NoticeDTO noticeDTO) throws Exception {
 		return sqlSession.update(NAMESPACE+"update", noticeDTO);
 	}
-	public Long getTotal() throws Exception {
-		return sqlSession.selectOne(NAMESPACE+"getTotal");
+	public Long getTotal(NoticePager noticePager) throws Exception {
+		return sqlSession.selectOne(NAMESPACE+"getTotal", noticePager);
 	}
 }
