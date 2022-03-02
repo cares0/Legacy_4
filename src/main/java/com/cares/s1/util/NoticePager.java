@@ -68,8 +68,10 @@ public class NoticePager {
 		if (curBlock == totalBlock) {
 			this.lastNum = totalPage;
 		}
-		System.out.println(this.startRow);
-		System.out.println(this.lastRow);
+		//9. 검색결과가 없을 때
+		if(totalCount == 0) {
+			this.lastNum=0L;
+		}
 	}
 	
 	// 검색처리용
