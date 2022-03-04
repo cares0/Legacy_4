@@ -12,18 +12,19 @@
 	<c:import url="../template/header.jsp"></c:import>
 	<h1>공지사항 등록 페이지</h1>
 
-	<form action="./add" method="POST">
+	<form action="./add" method="POST" id="frm">
 		<h3>공지사항 이름 입력</h3>
-		<div><input type="text" name="title"></div>
+		<div><input type="text" name="title" id="title"></div>
 		<h3>공지사항 내용 입력</h3>
-		<div><textarea name="contents" rows="10" cols="30"></textarea></div>
+		<div><textarea name="contents" rows="10" cols="30" id="contents"></textarea></div>
 		<h3>작성자 입력</h3>
 		<div><input type="text" name="writer"></div>
 		
 		<br>
-		<button type="submit">등록하기</button>
+		<button type="button" id="btn">등록하기</button>
 	
 	</form>
-
+	
+	<script src="../resources/js/add.js"></script>
 </body>
 </html>
