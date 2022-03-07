@@ -4,6 +4,54 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 	<mapper namespace="com.cares.s1.qna.QnaDAO">
-	
+		<select id="list" parameterType="Pager" resultType="QnaDTO">
+			SELECT * 
+			FROM (SELECT ROWNUM R, B.*
+			      FROM (SELECT * FROM QNA 
+			            WHERE NUM > 0 
+			            AND 
+			            <choose>
+			            	<when test="kind=='col1'">
+			            	TITLE
+			            	</when>
+			            	<otherwise>
+			            	CONTENTS
+			            	</otherwise>
+			            </choose> 
+			            LIKE '%'||#{search}||'%'
+			            ORDER BY NUM DESC) B)
+			WHERE R BETWEEN #{startRow} AND #{lastRow}
+		</select>
+		<select id="total" resultType="Long" parameterType="Pager">
+			SELECT COUNT(NUM) FROM QNA 
+			WHERE NUM > 0 
+            AND 
+            <choose>
+            	<when test="kind=='col1'">
+	            	TITLE
+            	</when>
+            	<otherwise>
+	            	CONTENTS
+            	</otherwise>
+	        </choose> 
+            LIKE '%'||#{search}||'%'
+		</select>
+		
+		<select id="detail" parameterType="QnaDTO" resultType="QnaDTO">
+			SELECT * FROM QNA WHERE NUM = #{num}
+		</select>
+		
+		<insert id="add" parameterType="QnaDTO">
+			INSERT INTO QNA VALUES (QNA_SEQ.NEXTVAL, #{title}, #{contents}, #{writer}, SYSDATE, 0, 0, 0, 0)
+		</insert>
+		
+		<delete id="delete" parameterType="QnaDTO">
+			DELETE QNA WHERE NUM = #{num}
+		</delete>
+		
+		<update id="update" parameterType="QnaDTO">
+			UPDATE QNA SET TITLE = #{title}, CONTENTS = #{contents}
+			WHERE NUM = #{num}
+		</update>
 	
 	</mapper>

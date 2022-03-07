@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,13 +9,12 @@
 	<c:import url="../template/header_css.jsp"></c:import>
 	<link rel="stylesheet" type="text/css" href="../resources/css/table.css">
 	<link rel="stylesheet" type="text/css" href="../resources/css/list.css">
-	
 </head>
 <body>
 	<c:import url="../template/header.jsp"></c:import>
 	
 	<div class="table_container">
-		<h1 class="bankbook_title">BankBook List Page</h1>
+		<h1 class="bankbook_title">QnA List Page</h1>
 	
 		<!-- 검색 창 -->
 		<div class="search_container">
@@ -33,32 +32,24 @@
 		</div>
 
 
-		<table class="bankbook_table">
+		<table class="notice_table">
 			<thead>
 				<tr>
-					<th>Num</th>
-					<th>Name</th>
-					<th>Rate</th>
-					<th>Sale</th>
+					<th>글번호</th>
+					<th>글제목</th>
+					<th>조회수</th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach items="${list}" var="dto">
 					<tr>
-						<td>${dto.bookNumber}</td>
-						<td><a href="./detail?bookNumber=${dto.bookNumber}">${dto.bookName}</a></td>
-						<td>${dto.bookRate}</td>
-						<c:if test="${dto.bookSale!=0}">
-						<td>판매중</td>
-						</c:if>
-						<c:if test="${dto.bookSale==0}">
-						<td>사용불가</td>
-						</c:if>
+						<td>${dto.num}</td>
+						<td><a href="./detail?num=${dto.num}">${dto.title}</a></td>
+						<td>${dto.hit}</td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
-		
 		<div class = "notice_block">
 			<c:if test="${pager.pre}">
 				<a href="./list?page=${pager.startNum-1}">PREVIEW</a>
@@ -75,7 +66,7 @@
 		</div>
 		<br>
 
-		<a href="./add">통장 추가</a>
+		<a href="./add">질문 추가</a>
 	</div>
 </body>
 </html>

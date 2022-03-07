@@ -106,6 +106,10 @@ public class Pager {
 		if(curBlock == totalBlock) {
 			this.lastNum = totalPage;
 		} // 마지막 블럭에는 결국 총 페이지 만큼 표시되어야 하기 때문임
+		
+		if(totalCount == 0) {
+			this.lastNum = 0L;
+		}
 	}
 		
 	// null 이면 get메서드 호출할 때 기본값 10 넣어놓자

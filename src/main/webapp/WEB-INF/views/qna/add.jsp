@@ -10,12 +10,12 @@
 </head>
 <body>
 	<c:import url="../template/header.jsp"></c:import>
-	<h1>공지사항 등록 페이지</h1>
+	<h1>질문 등록 페이지</h1>
 
 	<form action="./add" method="POST">
-		<h3>공지사항 제목 입력</h3>
+		<h3>질문 제목 입력</h3>
 		<div><input type="text" name="title"></div>
-		<h3>공지사항 내용 입력</h3>
+		<h3>질문 내용 입력</h3>
 		<div><textarea name="contents" rows="10" cols="30"></textarea></div>
 		<h3>작성자 입력</h3>
 		<div><input type="text" name="writer"></div>
