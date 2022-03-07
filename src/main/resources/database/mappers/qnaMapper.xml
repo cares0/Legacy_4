@@ -3,11 +3,11 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-	<mapper namespace="com.cares.s1.board.notice.NoticeDAO">
-		<select id="list" resultType="NoticeDTO"> <!-- 자기 타입으로 담아서 리턴해야 함, 즉 BoardDTO로 바꾸면 안됨 -->
+	<mapper namespace="com.cares.s1.board.qna.QnaDAO">
+		<select id="list" parameterType="Pager" resultType="QnaDTO">
 			SELECT * 
 			FROM (SELECT ROWNUM R, B.*
-			      FROM (SELECT * FROM NOTICE 
+			      FROM (SELECT * FROM QNA 
 			            WHERE NUM > 0 
 			            AND 
 			            <choose>
@@ -26,33 +26,37 @@
 			WHERE R BETWEEN #{startRow} AND #{lastRow}
 		</select>
 		<select id="total" resultType="Long" parameterType="Pager">
-			SELECT COUNT(NUM) FROM NOTICE 
+			SELECT COUNT(NUM) FROM QNA 
 			WHERE NUM > 0 
             AND 
             <choose>
-			    <when test="kind=='col1'">
-					TITLE
-			    </when>
-				<when test="kind=='col2'">
-					CONTENTS
-				</when>
-				<otherwise>
-					WRITER
-				</otherwise>
+            	<when test="kind=='col1'">
+	            	TITLE
+            	</when>
+            	<when test="kind=='col2'">
+	            	CONTENTS
+            	</when>
+            	<otherwise>
+	            	WRITER
+            	</otherwise>
 	        </choose> 
             LIKE '%'||#{search}||'%'
 		</select>
-		<select id="detail" resultType="NoticeDTO" parameterType="NoticeDTO">
-			SELECT * FROM NOTICE WHERE NUM = #{num}
+
+		<select id="detail" parameterType="QnaDTO" resultType="QnaDTO">
+			SELECT * FROM QNA WHERE NUM = #{num}
 		</select>
-		<delete id="delete" parameterType="NoticeDTO">
-			DELETE NOTICE WHERE NUM = #{num}
-		</delete>
-		<insert id="add" parameterType="NoticeDTO">
-			INSERT INTO NOTICE VALUES (NOTICE_SEQ.NEXTVAL, #{title}, #{contents}, #{writer}, SYSDATE, 0)
+
+		<insert id="add" parameterType="QnaDTO">
+			INSERT INTO QNA VALUES (QNA_SEQ.NEXTVAL, #{title}, #{contents}, #{writer}, SYSDATE, 0, 0, 0, 0)
 		</insert>
-		<update id="update" parameterType="NoticeDTO">
-			UPDATE NOTICE SET TITLE = #{title}, CONTENTS = #{contents} WHERE NUM = #{num}
+
+		<delete id="delete" parameterType="QnaDTO">
+			DELETE QNA WHERE NUM = #{num}
+		</delete>
+
+		<update id="update" parameterType="QnaDTO">
+			UPDATE QNA SET TITLE = #{title}, CONTENTS = #{contents}
+			WHERE NUM = #{num}
 		</update>
-		
 	</mapper>

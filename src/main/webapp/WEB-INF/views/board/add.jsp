@@ -10,7 +10,7 @@
 </head>
 <body>
 	<c:import url="../template/header.jsp"></c:import>
-	<h1>공지사항 등록 페이지</h1>
+	<h1>${board} 등록 페이지</h1>
 
 	<form action="./add" method="POST">
 		<h3>공지사항 이름 입력</h3>

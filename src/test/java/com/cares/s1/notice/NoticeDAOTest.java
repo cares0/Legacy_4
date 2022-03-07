@@ -8,6 +8,8 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.cares.s1.InitTestCase;
+import com.cares.s1.board.notice.NoticeDAO;
+import com.cares.s1.board.notice.NoticeDTO;
 
 public class NoticeDAOTest extends InitTestCase {
 
@@ -19,21 +21,21 @@ public class NoticeDAOTest extends InitTestCase {
 		assertNotNull(noticeDAO);
 	}
 	
-	@Test
-	public void listTest() throws Exception {
-		List<NoticeDTO> ar = noticeDAO.list();
-		
-		assertNotEquals(0, ar.size());
-	}
+//	@Test
+//	public void listTest() throws Exception {
+//		List<NoticeDTO> ar = noticeDAO.list();
+//		
+//		assertNotEquals(0, ar.size());
+//	}
 	
-	@Test
-	public void detailTest() throws Exception {
-		NoticeDTO noticeDTO = new NoticeDTO();
-		noticeDTO.setNum(1L);
-		noticeDTO = noticeDAO.detail(noticeDTO);
-		
-		assertNotNull(noticeDTO);
-	}
+//	@Test
+//	public void detailTest() throws Exception {
+//		NoticeDTO noticeDTO = new NoticeDTO();
+//		noticeDTO.setNum(1L);
+//		noticeDTO = noticeDAO.detail(noticeDTO);
+//		
+//		assertNotNull(noticeDTO);
+//	}
 	
 	@Test
 	public void insertTest() throws Exception {

@@ -10,6 +10,7 @@
 </head>
 <body>
 	<c:import url="../template/header.jsp"></c:import>
+	<h1>${board} detail page</h1>
 	<table>
 		<thead>
 			<tr>

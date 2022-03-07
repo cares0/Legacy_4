@@ -1,9 +1,9 @@
-package com.cares.s1.notice;
+package com.cares.s1.board;
 
 import java.sql.Date;
 
-public class NoticeDTO {
-
+public class BoardDTO {
+	
 	private Long num;
 	private String title;
 	private String contents;
@@ -34,7 +34,7 @@ public class NoticeDTO {
 	}
 	public void setWriter(String writer) {
 		this.writer = writer;
-	}	
+	}
 	public Date getRegDate() {
 		return regDate;
 	}
