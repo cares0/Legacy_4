@@ -38,7 +38,9 @@
 	<a href="./list">목록 보기</a>
 	<a href="./delete?num=${detail.num}">글 삭제</a>
 	<a href="./update?num=${detail.num}">글 수정</a>
-	<a href="./reply?num=${detail.num}">답글 달기</a>
+	<c:if test="${board!='notice'}">
+		<a href="./reply?num=${detail.num}">답글 달기</a>
+	</c:if>
 	<!-- 부모글의 NUM을 보내서 부모글의 REF, STEP, DEPTH를 참고하게 만들자 -->
 </body>
 </html>
