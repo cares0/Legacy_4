@@ -4,6 +4,20 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 	<mapper namespace="com.cares.s1.board.qna.QnaDAO">
+	
+		<insert id="reply" parameterType="QnaDTO">
+			INSERT INTO QNA
+			VALUES (QNA_SEQ.NEXTVAL, #{title}, #{contents}, #{writer}, SYSDATE, 0, #{ref}, #{step}, #{depth})
+			<!-- Service에서 계산한 REF, STEP, DEPTH를 INSERT 해줌 -->
+		</insert>
+	
+		<update id="stepUpdate" parameterType="QnaDTO">
+			UPDATE QNA SET STEP = STEP+1
+			WHERE REF = #{ref} AND STEP > #{step}
+			<!-- 자기자신의 STEP을 가져와서 + 1한 값을 넣어라 -->
+			<!-- ref가 부모의 ref와 같고, step이 부모의 step보다 큰 것들을 -->
+		</update>
+	
 		<select id="list" parameterType="Pager" resultType="QnaDTO">
 			SELECT * 
 			FROM (SELECT ROWNUM R, B.*
@@ -22,7 +36,7 @@
 			            	</otherwise>
 			            </choose> 
 			            LIKE '%'||#{search}||'%'
-			            ORDER BY NUM DESC) B)
+			            ORDER BY REF DESC, STEP ASC) B)
 			WHERE R BETWEEN #{startRow} AND #{lastRow}
 		</select>
 		<select id="total" resultType="Long" parameterType="Pager">
@@ -47,8 +61,9 @@
 			SELECT * FROM QNA WHERE NUM = #{num}
 		</select>
 
+		<!-- 원본글을 삽입하는 add, 원본글의 ref에는 자기 자신의 글번호가 들어가야함 -> CURVAL이 들어가야 함 -->
 		<insert id="add" parameterType="QnaDTO">
-			INSERT INTO QNA VALUES (QNA_SEQ.NEXTVAL, #{title}, #{contents}, #{writer}, SYSDATE, 0, 0, 0, 0)
+			INSERT INTO QNA VALUES (QNA_SEQ.NEXTVAL, #{title}, #{contents}, #{writer}, SYSDATE, 0, QNA_SEQ.CURRVAL, 0, 0)
 		</insert>
 
 		<delete id="delete" parameterType="QnaDTO">

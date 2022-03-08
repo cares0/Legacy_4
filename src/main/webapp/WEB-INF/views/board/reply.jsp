@@ -10,18 +10,20 @@
 </head>
 <body>
 	<c:import url="../template/header.jsp"></c:import>
-	<h1>${board} 등록 페이지</h1>
+	<h1>${board} 답글 페이지</h1>
 
-	<form action="./add" method="POST">
-		<h3>글 이름 입력</h3>
+	<form action="./reply" method="POST">
+		<input type="hidden" value="${dto.num}" name="num">
+		<!-- 부모글의 num이 들어가 있는 dto을 받아서 또 넘겨주어야 함 -->
+		<h3>답글 제목 입력</h3>
 		<div><input type="text" name="title"></div>
-		<h3>글 내용 입력</h3>
+		<h3>답글 내용 입력</h3>
 		<div><textarea name="contents" rows="10" cols="30"></textarea></div>
 		<h3>작성자 입력</h3>
 		<div><input type="text" name="writer"></div>
 		
 		<br>
-		<button type="submit">등록하기</button>
+		<button type="submit">답글달기</button>
 	
 	</form>
 
