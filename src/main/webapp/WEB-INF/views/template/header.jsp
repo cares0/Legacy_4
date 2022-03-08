@@ -17,7 +17,7 @@
 				<c:choose>
 					<c:when test="${empty member}"> 
 					<li><a href="/s1/member/login">Login<span class="material-icons-outlined icon">login</span></a></li>
-					<li><a href="/s1/member/join">Join<span class="material-icons-outlined icon">Join</span></a></li>
+					<li><a href="/s1/member/joinCheck">Join<span class="material-icons-outlined icon">Join</span></a></li>
 					</c:when>
 				 	<c:otherwise>
 					<li><a href="/s1/member/mypage">MyPage</a></li>

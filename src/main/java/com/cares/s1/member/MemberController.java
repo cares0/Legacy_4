@@ -56,7 +56,7 @@ public class MemberController {
 	}
 
 	@RequestMapping(value = "login", method = RequestMethod.POST)
-	public String login(HttpSession session, MemberDTO memberDTO, String remember, HttpServletResponse response) throws Exception {
+	public String login(HttpSession session, MemberDTO memberDTO, String remember, HttpServletResponse response, Model model) throws Exception {
 
 		if(remember != null && remember.equals("1")) {
 			// 쿠키 생성
@@ -71,12 +71,23 @@ public class MemberController {
 		
 		// 쿠키를 생성하기 전에 DB에 호출해버리면, 로그인이 실패했을 경우 Null인 DTO의 ID를 쿠키에 저장하기 때문에 Exception 발생, 코드 순서 고려
 		memberDTO = memberService.login(memberDTO);
-		String path = "redirect:./login";
-		if (memberDTO != null) {
-			// 로그인 성공 시 session 객체에 성공한 DTO 객체를 넣어놓음
+//		String path = "redirect:./login";
+//		if (memberDTO != null) {
+//			// 로그인 성공 시 session 객체에 성공한 DTO 객체를 넣어놓음
+//			session.setAttribute("member", memberDTO);
+//			path = "redirect:../";
+//		}
+		String message = "Login Fail";
+		String p = "./login"; // 로그인 실패시에는 다시 로그인 페이지로
+		if(memberDTO != null) {
 			session.setAttribute("member", memberDTO);
-			path = "redirect:../";
-		}
+			message = "Login Success";
+			p = "../"; // 로그인 성공시에는 index페이지로 
+		} // 미리 Controller에서 경로를 계산해서 JSP로 보내는 것임
+		model.addAttribute("message", message);
+		model.addAttribute("path", p);
+		String path = "common/result";
+
 		return path;
 	}
 	
@@ -91,4 +102,8 @@ public class MemberController {
 		return "redirect:../";
 	}
 	
+	@RequestMapping(value = "joinCheck", method = RequestMethod.GET)
+	public void joinCheck() throws Exception {
+		
+	}
 }
