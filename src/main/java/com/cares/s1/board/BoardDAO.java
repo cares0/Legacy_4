@@ -26,4 +26,7 @@ public interface BoardDAO {
 	//total
 	public long total(Pager pager) throws Exception;
 	
+	//addFile
+	public int addFile(BoardFileDTO boardFileDTO) throws Exception;
+	
 }

@@ -7,7 +7,14 @@ public class MemberDTO {
 	public String name;
 	public String phone;
 	public String email;
+	private MemberFileDTO memberFileDTO;
 	
+	public MemberFileDTO getMemberFileDTO() {
+		return memberFileDTO;
+	}
+	public void setMemberFileDTO(MemberFileDTO memberFileDTO) {
+		this.memberFileDTO = memberFileDTO;
+	}
 	public String getId() {
 		return id;
 	}

@@ -13,12 +13,40 @@
 			SELECT ID, NAME FROM MEMBER WHERE ID = #{id} AND PW = #{pw}
 		</select>
 		
-		<select id="mypage" parameterType="MemberDTO" resultType="MemberDTO">
-			SELECT ID, NAME, PHONE, EMAIL FROM MEMBER WHERE ID = #{id}
+		<select id="mypage" parameterType="MemberDTO" resultMap="mypageResult">
+			SELECT A.ID, NAME, PHONE, EMAIL, FILENUM, FILENAME, ORINAME 
+			FROM MEMBER A
+			LEFT JOIN MEMBERFILE B
+			ON A.ID = B.ID
+			WHERE A.ID = #{id}
+			<!-- 사진을 안올린 사람도 조회가 되도록 LEFT JOIN -->
 		</select>
+		
+		<resultMap type="MemberDTO" id="mypageResult">
+		<!-- type : 최종적으로 원하는 결과물 -->
+			<id column="id" property="id"/> <!-- PK만 id태그 사용 -->
+			<!-- column : 컬럼명을 명시 / property : 결과로 내보낼 DTO의 멤버변수명을 명시 -->
+			<result column="name" property="name"/> <!-- PK를 제외한 나머지 컬럼들은 result태그 사용 -->
+			<result column="phone" property="phone"/>
+			<result column="email" property="email"/>
+			
+			<!-- 클래스의 멤버가 레퍼런스타입(다른DTO일때) -->
+			<!-- 1:1관계인 경우 association태그 사용 / 1:N일 경우에는 collection태그 사용-->
+			<association property="memberFileDTO" javaType="MemberFileDTO">
+			<!-- property에는 멤버변수명을 명시 / javaType에는 해당 멤버변수의 데이터타입(풀패키지명, 별칭)을 명시 -->
+				<id column="fileNum" property="fileNum"/>
+				<result column="fileName" property="fileName"/>
+				<result column="oriName" property="oriName"/>
+			</association>
+		</resultMap>
 		
 		<update id="update" parameterType="MemberDTO">
 			UPDATE MEMBER SET NAME = #{name}, PHONE = #{phone}, EMAIL = #{email} WHERE ID = #{id} 
 		</update>
+		
+		<insert id="addFile" parameterType="MemberFileDTO">
+			INSERT INTO MEMBERFILE (FILENUM, ID, FILENAME, ORINAME)
+			VALUES (FILE_SEQ.NEXTVAL, #{id}, #{fileName}, #{oriName})
+		</insert>
 		
 	</mapper>

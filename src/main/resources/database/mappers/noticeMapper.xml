@@ -25,6 +25,7 @@
 			            ORDER BY NUM DESC) B)
 			WHERE R BETWEEN #{startRow} AND #{lastRow}
 		</select>
+		
 		<select id="total" resultType="Long" parameterType="Pager">
 			SELECT COUNT(NUM) FROM NOTICE 
 			WHERE NUM > 0 
@@ -42,15 +43,61 @@
 	        </choose> 
             LIKE '%'||#{search}||'%'
 		</select>
-		<select id="detail" resultType="NoticeDTO" parameterType="NoticeDTO">
-			SELECT * FROM NOTICE WHERE NUM = #{num}
+		
+		<select id="detail" parameterType="NoticeDTO" resultMap="detailResult">
+			SELECT A.*, B.*
+			FROM NOTICE A
+			LEFT JOIN NOTICEFILE B
+			ON A.NUM = B.NUM
+			WHERE A.NUM = #{num}
 		</select>
+		
+		<resultMap type="NoticeDTO" id="detailResult">
+			<id column="num" property="num"/>
+			<result column="title" property="title"/>
+			<result column="contents" property="contents"/>
+			<result column="writer" property="writer"/>
+			<result column="regDate" property="regDate"/>
+			<result column="hit" property="hit"/>
+			
+			<!-- 1:N 관계일 경우 -->
+			<!-- property : NoticeDTO(resultMap의 type)의 어느 멤버에 값을 넣을 것이니? -->
+			<!-- javaType : property의 데이터 타입을 명시 -->
+			<!-- ofType : collection(List,Map 등)이기 때문에 무엇을 담는 List인지, 제너릭을 명시 -->
+			<collection property="fileDTOs" javaType="List" ofType="NoticeFileDTO">
+				<id column="fileNum" property="fileNum"/>
+				<result column="fileName" property="fileName"/>
+				<result column="oriName" property="oriName"/>
+			</collection>
+		</resultMap>
+		
 		<delete id="delete" parameterType="NoticeDTO">
 			DELETE NOTICE WHERE NUM = #{num}
 		</delete>
+		
+		<select id="seqNum" resultType="Long">
+			<!-- 1번째 방법 : SELECT MAX(NUM) FROM NOTICE -->
+			<!-- 2번째 방법 : 미리 시퀀스번호를 생성해놓고, Service에서 DTO에 이 번호를 넣어서 add하는 것임 -->
+			<!-- SELECT NOTICE_SEQ.NEXTVAL FROM DUAL -->
+		</select>
+		
 		<insert id="add" parameterType="NoticeDTO">
-			INSERT INTO NOTICE VALUES (NOTICE_SEQ.NEXTVAL, #{title}, #{contents}, #{writer}, SYSDATE, 0)
+			<selectKey keyProperty="num" order="BEFORE" resultType="Long">
+				SELECT NOTICE_SEQ.NEXTVAL FROM DUAL
+			</selectKey>
+			<!-- 결과물을 담을 parameterType의 멤버변수를 명시 -->
+			<!-- order : 메인쿼리를 실행하기 전에 할 것인지 후에 할 것인지 -->
+			<!-- 메인쿼리를 실행하기 전에 위 쿼리를 실행해서, 이 결과물은 Long타입으로 반환하고, NoticeDTO의 num에 담아라 -->
+			<!-- 그러면 NoticeDTO의 num에는 시퀀스번호가 담겨져 있는 상태이기 때문에 #{num}을 하면 들어가게 됨 -->
+			INSERT INTO NOTICE VALUES (#{num}, #{title}, #{contents}, #{writer}, SYSDATE, 0)
 		</insert>
+		
+		<insert id="addFile" parameterType="BoardFileDTO">
+			INSERT INTO NOTICEFILE
+			VALUES (FILE_SEQ.NEXTVAL, #{num}, #{fileName}, #{oriName})
+		
+		</insert>
+		
 		<update id="update" parameterType="NoticeDTO">
 			UPDATE NOTICE SET TITLE = #{title}, CONTENTS = #{contents} WHERE NUM = #{num}
 		</update>

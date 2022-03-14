@@ -33,6 +33,11 @@
 			</tr>
 		</tbody>
 	</table>
+	<div>
+		<c:forEach items="${detail.fileDTOs}" var="f" >
+			<a href="../resources/upload/${board}/${f.fileName}">${f.oriName}</a>
+		</c:forEach>
+	</div>
 	
 	<br>
 	<a href="./list">목록 보기</a>

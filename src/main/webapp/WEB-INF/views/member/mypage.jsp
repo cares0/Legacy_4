@@ -17,6 +17,8 @@
 		<h3>${mypage.name}</h3>
 		<h3>${mypage.phone}</h3>
 		<h3>${mypage.email}</h3>
+		<img src="../resources/upload/member/${mypage.memberFileDTO.fileName}">
+		<h3>${mypage.memberFileDTO.oriName}</h3>
 	</div>
 	
 	<a href="./update?id=${mypage.id}">정보수정하기</a>

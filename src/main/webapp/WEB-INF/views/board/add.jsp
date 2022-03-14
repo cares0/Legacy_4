@@ -12,7 +12,7 @@
 	<c:import url="../template/header.jsp"></c:import>
 	<h1>${board} 등록 페이지</h1>
 
-	<form action="./add" method="POST" id="frm">
+	<form action="./add" method="POST" id="frm" enctype="multipart/form-data">
 		<h3>글 이름 입력</h3>
 		<div><input type="text" name="title" id="title"></div>
 		<h3>글 내용 입력</h3>
@@ -20,9 +20,15 @@
 		<h3>작성자 입력</h3>
 		<div><input type="text" name="writer"></div>	
 		<br>
+		<div>
+			<input type="file" name="files">
+			<input type="file" name="files">
+			<input type="file" name="files">
+		</div>
+		<br>
 		<button type="button" id="btn">등록하기</button>
 	</form>
-	
+	<br>
 	<script src="../resources/js/add.js"></script>
 </body>
 </html>

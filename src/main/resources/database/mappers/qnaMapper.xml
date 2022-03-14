@@ -57,13 +57,41 @@
             LIKE '%'||#{search}||'%'
 		</select>
 
-		<select id="detail" parameterType="QnaDTO" resultType="QnaDTO">
-			SELECT * FROM QNA WHERE NUM = #{num}
+		<select id="detail" parameterType="QnaDTO" resultMap="detailResult">
+			SELECT A.NUM, TITLE, CONTENTS, WRITER, REGDATE, HIT, B.*
+			FROM QNA A
+			LEFT JOIN QNAFILE B
+			ON A.NUM = B.NUM
+			WHERE A.NUM = #{num}
 		</select>
+		
+		<resultMap type="QnaDTO" id="detailResult">
+			<id column="num" property="num"/>
+			<result column="title" property="title"/>
+			<result column="contents" property="contents"/>
+			<result column="writer" property="writer"/>
+			<result column="regDate" property="regDate"/>
+			<result column="hit" property="hit"/>
+			
+			<collection property="fileDTOs" javaType="List" ofType="QnaFileDTO">
+				<id column="fileNum" property="fileNum"/>
+				<result column="fileName" property="fileName"/>
+				<result column="oriName" property="oriName"/>
+			</collection>
+		</resultMap>
+		
 
 		<!-- 원본글을 삽입하는 add, 원본글의 ref에는 자기 자신의 글번호가 들어가야함 -> CURVAL이 들어가야 함 -->
 		<insert id="add" parameterType="QnaDTO">
-			INSERT INTO QNA VALUES (QNA_SEQ.NEXTVAL, #{title}, #{contents}, #{writer}, SYSDATE, 0, QNA_SEQ.CURRVAL, 0, 0)
+			<selectKey keyProperty="num" order="BEFORE" resultType="Long">
+				SELECT QNA_SEQ.NEXTVAL FROM DUAL
+			</selectKey>
+			INSERT INTO QNA VALUES (#{num}, #{title}, #{contents}, #{writer}, SYSDATE, 0, QNA_SEQ.CURRVAL, 0, 0)
+		</insert>
+		
+		<insert id="addFile" parameterType="BoardFileDTO">
+			INSERT INTO QNAFILE
+			VALUES (FILE_SEQ.NEXTVAL, #{num}, #{fileName}, #{oriName})
 		</insert>
 
 		<delete id="delete" parameterType="QnaDTO">

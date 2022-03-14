@@ -4,9 +4,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.cares.s1.board.BoardDTO;
 import com.cares.s1.board.BoardService;
+import com.cares.s1.util.FileManager;
 import com.cares.s1.util.Pager;
 
 @Service
@@ -14,6 +16,9 @@ public class QnaService implements BoardService {
 
 	@Autowired
 	private QnaDAO qnaDAO;
+	
+	@Autowired
+	private FileManager fileManager;
 	
 	@Override
 	public List<BoardDTO> list(Pager pager) throws Exception {
@@ -30,9 +35,25 @@ public class QnaService implements BoardService {
 	}
 
 	@Override
-	public int add(BoardDTO boardDTO) throws Exception {
-		// TODO Auto-generated method stub
-		return qnaDAO.add(boardDTO);
+	public int add(BoardDTO boardDTO, MultipartFile files[]) throws Exception {
+		
+		int result = qnaDAO.add(boardDTO);
+		
+		for(int i=0;i<files.length;i++) {
+			if(files[i].isEmpty()) {
+				continue;
+			}
+			
+			String fileName = fileManager.save(files[i], "resources/upload/qna/");
+			
+			QnaFileDTO qnaFileDTO = new QnaFileDTO();
+			qnaFileDTO.setFileName(fileName);
+			qnaFileDTO.setOriName(files[i].getOriginalFilename());
+			qnaFileDTO.setNum(boardDTO.getNum());
+			
+			qnaDAO.addFile(qnaFileDTO);
+		}
+		return result;
 	}
 
 	@Override

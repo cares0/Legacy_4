@@ -43,7 +43,7 @@
 	</table>
 	
 	<br>
-	<a href="./add">공지사항 등록</a>
+	<a href="./add">${board}등록</a>
 	
 </body>
 </html>

@@ -13,7 +13,7 @@
 	<h1>Member Join Page</h1>
 	
 	
-    <form action="./join" method="post" id="frm">
+    <form action="./join" method="post" id="frm" enctype="multipart/form-data">
         
         <fieldset>
             <legend>아이디 입력</legend>
@@ -47,14 +47,20 @@
             <legend>이메일 입력</legend>
             <input type="text" id="email" name="email">
         </fieldset>
+
+        <fieldset>
+            <legend>사진 추가</legend>
+            <input type="file" id="photo" name="photo">
+        </fieldset>
         
         <fieldset>
-			<button type="button" id="btn">회원가입하기</button>
+	<!--	<button type="button" id="btn">회원가입하기</button> -->
+			<button type="submit" id="btn">회원가입하기</button>
         </fieldset>
         
 
     </form>
-	<script src="../resources/js/join2.js"></script>
+	<!-- <script src="../resources/js/join2.js"></script> -->
 	
 </body>
 </html>
