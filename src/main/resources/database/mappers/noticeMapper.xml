@@ -102,4 +102,12 @@
 			UPDATE NOTICE SET TITLE = #{title}, CONTENTS = #{contents} WHERE NUM = #{num}
 		</update>
 		
+		<select id="detailFile" parameterType="NoticeFileDTO" resultType="NoticeFileDTO">
+			SELECT * FROM NOTICEFILE WHERE FILENUM = #{fileNum}
+		</select>
+		
+		<select id="listFile" parameterType="BoardDTO" resultType="NoticeFileDTO">
+  			SELECT * FROM NOTICEFILE WHERE NUM = #{num}
+		</select>
+		
 	</mapper>

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.cares.s1.board.BoardDTO;
 import com.cares.s1.util.Pager;
@@ -24,6 +25,17 @@ public class NoticeController {
 	@ModelAttribute("board")
 	public String board() {
 		return "notice";
+	}
+	
+	@RequestMapping(value = "fileDown")
+	public ModelAndView fileDown(NoticeFileDTO noticeFileDTO) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		noticeFileDTO = noticeService.detailFile(noticeFileDTO);
+		
+		mv.addObject("file", noticeFileDTO);
+		mv.setViewName("fileDown");
+		
+		return mv;
 	}
 	
 	@RequestMapping (value = "update", method = RequestMethod.POST)

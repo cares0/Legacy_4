@@ -2,6 +2,7 @@ package com.cares.s1.member;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cares.s1.util.FileManager;
@@ -14,6 +15,11 @@ public class MemberService {
 	
 	@Autowired
 	private FileManager fileManager;
+		
+	
+	public MemberFileDTO detailFile(MemberFileDTO memberFileDTO) throws Exception {
+		return memberDAO.detailFile(memberFileDTO);
+	}
 	
 	public int join(MemberDTO memberDTO, MultipartFile photo) throws Exception {
 		int result = memberDAO.join(memberDTO); // MEMBER 테이블에 먼저 ID가 인서트 되어야 참조무결성이 위배되지 않음

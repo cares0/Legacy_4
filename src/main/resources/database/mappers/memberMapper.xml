@@ -5,6 +5,10 @@
 
 	<mapper namespace="com.cares.s1.member.MemberDAO">
 		
+		<select id="detailFile" parameterType="MemberFileDTO" resultType="MemberFileDTO">
+			SELECT * FROM MEMBERFILE WHERE FILENUM = #{fileNum}			
+		</select>
+		
 		<insert id="join" parameterType="MemberDTO">
 			INSERT INTO MEMBER VALUES (#{id}, #{pw}, #{name}, #{phone}, #{email})
 		</insert>

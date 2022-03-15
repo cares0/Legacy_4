@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,6 +22,24 @@ public class MemberController {
 
 	@Autowired
 	private MemberService memberService;
+	
+	@ModelAttribute("board")
+	public String getBoard() {
+		return "member";
+	}
+	
+	@RequestMapping(value = "photoDown", method = RequestMethod.GET)
+	public ModelAndView fileDown(MemberFileDTO memberFileDTO) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		memberFileDTO = memberService.detailFile(memberFileDTO);
+		
+		mv.addObject("file", memberFileDTO);
+		mv.setViewName("fileDown"); 
+		// 그동안 JSP 경로명을 넣었다면, 파일 다운로드를 실행하는 클래스명(BeanName)을 넣어놓음
+		// 그러면 BeanNameResolver 에서 ViewName과 같은 Bean이 있는지 확인해서 그 Bean을 실행시킴
+		return mv;
+	}
+	
 	
 	@RequestMapping(value = "update", method = RequestMethod.POST)
 	public String update(MemberDTO memberDTO) throws Exception {

@@ -27,6 +27,17 @@ public class QnaController {
 		return "qna";
 	}
 	
+	@RequestMapping(value = "fileDown")
+	public ModelAndView fileDown(QnaFileDTO qnaFileDTO) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		qnaFileDTO = qnaService.detailFile(qnaFileDTO);
+		
+		mv.addObject("file", qnaFileDTO);
+		mv.setViewName("fileDown");
+		
+		return mv;
+	}
+	
 	@RequestMapping(value = "reply", method = RequestMethod.GET)
 	public ModelAndView reply(QnaDTO qnaDTO, ModelAndView mv) throws Exception {
 		

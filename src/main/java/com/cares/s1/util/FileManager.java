@@ -78,4 +78,16 @@ public class FileManager {
 		
 		return fileName; // 실제 HDD에 저장된 파일 이름을 리턴해줄테니, DB에 저장해라
 	}
+	
+	public boolean remove(String path, String fileName) throws Exception {
+		// 파일을 HDD에서 삭제
+		// 저장된 폴더(경로) + 저장된 파일명이 필요
+		path = servletContext.getRealPath(path); // realPath + path = OS상의 실제 경로
+		
+		// 파일의 정보를 담고있는 File 객체 생성
+		File file = new File(path, fileName); // parent : 경로 + chile : 파일명
+		
+		// 해당 파일을 삭제하는 메서드 호출
+		return file.delete();		
+	}
 }

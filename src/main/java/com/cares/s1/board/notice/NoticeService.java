@@ -70,7 +70,29 @@ public class NoticeService implements BoardService {
 
 	@Override
 	public int delete(BoardDTO boardDTO) throws Exception {
-		return noticeDAO.delete(boardDTO);
+		// 글 번호로 하드디스크에 저장된 파일명을 조회
+		List<NoticeFileDTO> ar = noticeDAO.listFile(boardDTO);
+		
+		// 우선 지우는 작업을 한 다음에
+		int result = noticeDAO.delete(boardDTO); 
+		
+		// 삭제가 됐을 경우만 파일을 지워야 함
+		if(result > 0) {
+//			for(int i=0;i<ar.size();i++) {
+//				fileManager.remove("resources/upload/notice/", ar.get(i).getFileName());				
+//			}
+						
+			//for(Collection에서꺼낼타입명 변수명 : Collection의 변수명) {}
+			for(NoticeFileDTO noticeFileDTO : ar) {
+				boolean check = fileManager.remove("resources/upload/notice/", noticeFileDTO.getFileName());
+			}
+		}
+		
+		return result;
+	}
+	
+	public NoticeFileDTO detailFile(NoticeFileDTO noticeFileDTO) throws Exception {
+		return noticeDAO.detailFile(noticeFileDTO);
 	}
 	
 }

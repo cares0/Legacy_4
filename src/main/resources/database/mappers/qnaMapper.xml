@@ -5,6 +5,10 @@
 
 	<mapper namespace="com.cares.s1.board.qna.QnaDAO">
 	
+		<select id="detailFile" parameterType="QnaFileDTO" resultType="QnaFileDTO">
+			SELECT * FROM QNAFILE WHERE FILENUM = #{fileNum}		
+		</select>
+	
 		<insert id="reply" parameterType="QnaDTO">
 			INSERT INTO QNA
 			VALUES (QNA_SEQ.NEXTVAL, #{title}, #{contents}, #{writer}, SYSDATE, 0, #{ref}, #{step}, #{depth})
