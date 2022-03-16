@@ -46,9 +46,10 @@ public class NoticeController {
 	}
 	
 	@RequestMapping(value = "update", method = RequestMethod.GET)
-	public void update(NoticeDTO noticeDTO, Model model) throws Exception {
+	public String update(NoticeDTO noticeDTO, Model model) throws Exception {
 		BoardDTO boardDTO = noticeService.detail(noticeDTO);
 		model.addAttribute("detail", boardDTO);
+		return "board/update";
 	}
 	
 	@RequestMapping(value = "list", method = RequestMethod.GET)

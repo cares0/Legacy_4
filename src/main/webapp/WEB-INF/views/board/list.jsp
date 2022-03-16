@@ -43,7 +43,9 @@
 	</table>
 	
 	<br>
-	<a href="./add">${board}등록</a>
+	<c:if test="${not empty member}">
+		<a href="./add">${board}등록</a>
+	</c:if>
 	
 </body>
 </html>

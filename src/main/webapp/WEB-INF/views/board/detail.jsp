@@ -42,8 +42,12 @@
 	
 	<br>
 	<a href="./list">목록 보기</a>
-	<a href="./delete?num=${detail.num}">글 삭제</a>
-	<a href="./update?num=${detail.num}">글 수정</a>
+	
+	<c:if test="${member.id==detail.writer}">
+		<a href="./delete?num=${detail.num}">글 삭제</a>
+		<a href="./update?num=${detail.num}">글 수정</a>
+	</c:if>
+	
 	<c:if test="${board!='notice'}">
 		<a href="./reply?num=${detail.num}">답글 달기</a>
 	</c:if>

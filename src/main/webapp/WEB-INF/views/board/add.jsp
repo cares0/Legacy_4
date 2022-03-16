@@ -18,7 +18,7 @@
 		<h3>글 내용 입력</h3>
 		<div><textarea name="contents" rows="10" cols="30" id="contents"></textarea></div>
 		<h3>작성자 입력</h3>
-		<div><input type="text" name="writer"></div>	
+		<div><input type="text" readonly="readonly" name="writer" value="${member.id}"></div>	
 		<br>
 		<div>
 			<input type="file" name="files">
@@ -26,7 +26,9 @@
 			<input type="file" name="files">
 		</div>
 		<br>
-		<button type="button" id="btn">등록하기</button>
+		
+			<button type="button" id="btn">등록하기</button>
+		
 	</form>
 	<br>
 	<script src="../resources/js/add.js"></script>

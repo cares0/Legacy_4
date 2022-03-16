@@ -25,6 +25,34 @@
 	<beans:bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
 		<beans:property name="order" value="0" />
 	</beans:bean>
+		
+	<beans:bean class="com.cares.s1.interceptor.LoginInterceptor" id="LoginInterceptor"></beans:bean>
+	
+	<interceptors>
+		<interceptor>
+			<mapping path="/qna/**"/>
+			<exclude-mapping path="/qna/list"/>
+			<beans:ref bean="LoginInterceptor"/>
+		</interceptor>
+
+		<interceptor>
+			<mapping path="/qna/delete"/>
+			<beans:ref bean="writerInterceptor"/>
+		</interceptor>
+		
+		<interceptor>
+			<mapping path="/notice/update"/>
+			<mapping path="/qna/update"/>
+			<beans:bean class="com.cares.s1.interceptor.WriterCheckIntercepter"></beans:bean>
+		</interceptor>
+		
+		<interceptor>
+			<!-- /bankbook 으로 시작하는 모든 주소는 TestInterceptor를 거쳐라 -->
+			<mapping path="/bankbook/**"/>
+			<beans:bean class="com.cares.s1.interceptor.TestInterceptor"/>
+		</interceptor>
+		
+	</interceptors>
 	
 	<context:component-scan base-package="com.cares.s1" />
 	
