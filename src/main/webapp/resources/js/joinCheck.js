@@ -2,6 +2,7 @@
 
 const checkAll = document.getElementById('checkAll');
 const check = document.getElementsByClassName('check');
+const rules = document.getElementById('rules');
 const btn = document.getElementById('btn');
 
 checkAll.addEventListener("click",function() {
@@ -20,29 +21,39 @@ checkAll.addEventListener("click",function() {
 })
 //let checkNum = 0;
 
-for(let checkBox of check) {
-    checkBox.addEventListener("click",function(){
-        let final = true;
+rules.addEventListener("click", function(){
+    let final = true;
         for(c of check) {
             if(!c.checked){ // 한번이라도 체크가 헤제라면
                 final = false; // final을 false로
             }
         }
         checkAll.checked=final;
+})
 
-        // if(checkBox.checked == true) {
-        //     checkNum++
-        // } else {
-        //     checkNum--
-        // }
-        // if(checkNum == 4) {
-        //     checkAll.checked=true;
-        // } else {
-        //     checkAll.checked=false;
-        // }
-        // console.log(checkNum);
-    })
-}
+// for(let checkBox of check) {
+//     checkBox.addEventListener("click",function(){
+//         let final = true;
+//         for(c of check) {
+//             if(!c.checked){ // 한번이라도 체크가 헤제라면
+//                 final = false; // final을 false로
+//             }
+//         }
+//         checkAll.checked=final;
+
+//         // if(checkBox.checked == true) {
+//         //     checkNum++
+//         // } else {
+//         //     checkNum--
+//         // }
+//         // if(checkNum == 4) {
+//         //     checkAll.checked=true;
+//         // } else {
+//         //     checkAll.checked=false;
+//         // }
+//         // console.log(checkNum);
+//     })
+// }
 
 btn.addEventListener("click", function(){
     // let c = true;
