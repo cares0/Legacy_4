@@ -47,3 +47,40 @@ fileResult.addEventListener("click", function(event){
     }
 })
 
+const fileDeleteBtn = document.querySelectorAll(".fileDeleteBtn");
+const files = document.querySelector("#files");
+
+files.addEventListener("click", function(event){
+    if(event.target.classList.contains('fileDeleteBtn')) {
+        let check = confirm("삭제시 복구 불가능 합니다. 삭제하시겠습니까?");
+        
+        if(!check){
+            return;
+        }
+
+        let fileNum = event.target.getAttribute("data-fileNum");
+
+        let xhttp = new XMLHttpRequest();
+
+        xhttp.open("POST", "./fileDelete");
+
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+        xhttp.send("fileNum="+fileNum);
+
+        xhttp.onreadystatechange = function() {
+            if(this.readyState == 4 & this.status == 200) {
+                let result = this.responseText.trim();
+                if(result=='1') {
+                    console.log('파일 삭제');
+
+                    // 클릭한 삭제버튼의 부모요소를 삭제해버림
+                    event.target.parentNode.remove();
+                } else {
+                    console.log('삭제실패');
+                }
+            
+            }
+        }
+    }
+})

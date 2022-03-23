@@ -16,7 +16,9 @@
 		<typeAlias type="com.cares.s1.board.qna.QnaDTO" alias="QnaDTO"/>
 		<typeAlias type="com.cares.s1.board.BoardFileDTO" alias="BoardFileDTO"/>
 		<typeAlias type="com.cares.s1.board.notice.NoticeFileDTO" alias="NoticeFileDTO"/>
-		<typeAlias type="com.cares.s1.board.qna.QnaFileDTO" alias="QnaFileDTO"/>		
+		<typeAlias type="com.cares.s1.board.qna.QnaFileDTO" alias="QnaFileDTO"/>
+		<typeAlias type="com.cares.s1.board.notice.noticeReply.NoticeReplyDTO" alias="NoticeReplyDTO"/>
+				
 	</typeAliases>
 </configuration> 
 

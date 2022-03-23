@@ -37,6 +37,7 @@ public class NoticeService implements BoardService {
 	public int add(BoardDTO boardDTO, MultipartFile[] files) throws Exception {
 //		Long seqNum = noticeDAO.seqNum();
 //		boardDTO.setNum(seqNum);
+		
 		int result = noticeDAO.add(boardDTO);
 		for(int i=0;i<files.length;i++) {
 			if(files[i].isEmpty()) {
@@ -45,9 +46,15 @@ public class NoticeService implements BoardService {
 			}
 			// 1. HDD에 저장
 			String fileName = fileManager.save(files[i], "resources/upload/notice/");
+			
+			
 			// 파일 하나씩을 보내야 하니까
 			// 2. DB에 저장
 			// 한번 저장할 때마다 fileName 하나씩 나오니까 반복문이 돌 때마다 DB에 저장 한번씩 해야함
+			System.out.println(fileName);
+			System.out.println(files[i].getOriginalFilename());
+			System.out.println(boardDTO.getNum()*1);
+			
 			NoticeFileDTO noticeFileDTO = new NoticeFileDTO();
 			noticeFileDTO.setFileName(fileName);
 			noticeFileDTO.setOriName(files[i].getOriginalFilename());
@@ -56,7 +63,7 @@ public class NoticeService implements BoardService {
 			// 근데 Board는, 시퀀스로 자동생성이라 글번호를 파라미터값으로 받지 않음
 			// 즉, BoardDTO에 num은 없음..
 			// 그래서 시퀀스번호를 미리 조회를 해서 값을 받아온 다음에 그것을 boardDTO에 넣은 다음에 add를 해야함
-			noticeFileDTO.setNum(boardDTO.getNum());
+			noticeFileDTO.setNum(boardDTO.getNum()*1);
 			
 			noticeDAO.addFile(noticeFileDTO);
 		}
@@ -93,6 +100,12 @@ public class NoticeService implements BoardService {
 	
 	public NoticeFileDTO detailFile(NoticeFileDTO noticeFileDTO) throws Exception {
 		return noticeDAO.detailFile(noticeFileDTO);
+	}
+	
+	public int fileDelete(NoticeFileDTO noticeFileDTO) throws Exception {
+		int result = noticeDAO.fileDelete(noticeFileDTO);
+
+		return result;
 	}
 	
 }

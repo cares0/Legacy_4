@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
@@ -83,6 +84,18 @@ public class NoticeController {
 	public String delete(NoticeDTO noticeDTO) throws Exception {
 		int result = noticeService.delete(noticeDTO);
 		return "redirect:./list";
+	}
+	
+	@PostMapping("fileDelete")
+	public ModelAndView fileDelete(NoticeFileDTO noticeFileDTO) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		System.out.println(noticeFileDTO.getFileNum());
+		
+		int result = noticeService.fileDelete(noticeFileDTO);
+		
+		mv.setViewName("common/ajaxResult");
+		mv.addObject("result", result);
+		return mv;
 	}
 	
 	
