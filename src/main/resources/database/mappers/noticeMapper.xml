@@ -48,7 +48,7 @@
 			SELECT A.*, B.*
 			FROM NOTICE A
 			LEFT JOIN NOTICEFILE B
-			ON A.NUM = B.NUM
+			ON A.NUM = B.NOTICENUM
 			WHERE A.NUM = #{num}
 		</select>
 		
@@ -89,12 +89,12 @@
 			<!-- order : 메인쿼리를 실행하기 전에 할 것인지 후에 할 것인지 -->
 			<!-- 메인쿼리를 실행하기 전에 위 쿼리를 실행해서, 이 결과물은 Long타입으로 반환하고, NoticeDTO의 num에 담아라 -->
 			<!-- 그러면 NoticeDTO의 num에는 시퀀스번호가 담겨져 있는 상태이기 때문에 #{num}을 하면 들어가게 됨 -->
-			INSERT INTO NOTICE VALUES (#{num}, #{title}, #{contents}, #{writer}, SYSDATE, 0)
+			INSERT INTO NOTICE VALUES (#{num}, #{title}, #{contents}, 'nickname1', SYSDATE, 0, 'id1')
 		</insert>
 		
 		<insert id="addFile" parameterType="BoardFileDTO">
 			INSERT INTO NOTICEFILE
-			VALUES (FILE_SEQ.NEXTVAL, #{num}, #{fileName}, #{oriName})
+			VALUES (FILE_SEQ.NEXTVAL, #{fileName}, #{oriName}, #{num})
 		
 		</insert>
 		
@@ -107,7 +107,11 @@
 		</select>
 		
 		<select id="listFile" parameterType="BoardDTO" resultType="NoticeFileDTO">
-  			SELECT * FROM NOTICEFILE WHERE NUM = #{num}
+  			SELECT * FROM NOTICEFILE WHERE NOTICENUM = #{num}
+		</select>
+		
+		<select id="fileDelete" parameterType="NoticeFileDTO">
+			DELETE NOTICEFILE WHERE FILENUM = #{fileNum}
 		</select>
 		
 	</mapper>

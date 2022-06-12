@@ -62,6 +62,10 @@ public class NoticeDAO implements BoardDAO {
 		return sqlSession.selectOne(NAMESPACE+"detailFile", noticeFileDTO);
 	}
 	
+	public int fileDelete(NoticeFileDTO noticeFileDTO) throws Exception {
+		return sqlSession.delete(NAMESPACE+"fileDelete", noticeFileDTO);
+	}
+	
 //	public Long seqNum() throws Exception {
 //		return sqlSession.selectOne(NAMESPACE+"seqNum");
 //	}

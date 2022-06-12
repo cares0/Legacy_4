@@ -7,6 +7,11 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 	<c:import url="../template/header_css.jsp"></c:import>
+	<style type="text/css">
+		.bg {
+			background-color: gray;
+		}
+	</style>
 </head>
 <body>
 	<c:import url="../template/header.jsp"></c:import>
@@ -40,17 +45,31 @@
 		</c:forEach>
 	</div>
 	
+	<hr>
+	<form action="../noticeReply/add" method="post" enctype="application/x-www-form-urlencoded">
+		<input type="hidden" name="num" value="${detail.num}" id="num">
+		<input type="text" readonly="readonly" name="writer" value="${member.id}" id="writer">
+		<textarea rows="" cols="" name="contents" id="contents"></textarea>
+		<button id="reply" type="button">REPLY</button>
+	</form>
+	
+	<table id="replyResult">
+		
+	</table>
+	
 	<br>
 	<a href="./list">목록 보기</a>
 	
-	<c:if test="${member.id==detail.writer}">
+
 		<a href="./delete?num=${detail.num}">글 삭제</a>
 		<a href="./update?num=${detail.num}">글 수정</a>
-	</c:if>
+
 	
 	<c:if test="${board!='notice'}">
 		<a href="./reply?num=${detail.num}">답글 달기</a>
 	</c:if>
 	<!-- 부모글의 NUM을 보내서 부모글의 REF, STEP, DEPTH를 참고하게 만들자 -->
+	
+	<script src="../resources/js/noticeReply.js"></script>
 </body>
 </html>
